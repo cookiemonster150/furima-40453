@@ -41,7 +41,7 @@ Things you may want to cover:
 ### Association
 
 - has_many :items
-- has_many :buyers
+- has_many :buyer
 
 ## items テーブル
 
@@ -58,7 +58,7 @@ Things you may want to cover:
 ### Association
 
 - belongs_to :user
-- has_many :buyers
+- has_many :buyer
 
 ##  addressesテーブル
 
@@ -71,7 +71,7 @@ Things you may want to cover:
 | building_name      | string  | null: false, foreign_key:true |
 
 ### Association
-has_one :buyers
+has_one :buyer
 
 ## buyers テーブル
 
@@ -84,6 +84,6 @@ has_one :buyers
 
 - belongs_to :user
 - belongs_to :item
-
+- belongs_to :addresses
 
 
