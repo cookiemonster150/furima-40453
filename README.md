@@ -31,9 +31,12 @@ Things you may want to cover:
 | ------------------ | ------ | ----------- |
 | email              | string | null: false, unique:true |
 | encrypted_password | string | null: false |
-| name               | string | null: false |
-| name_reading       | string | null: false |
+| first_name_kana    | string | null: false |
+| last_name_kana     | string | null: false |
+| first_name         | string | null: false |
+| last_name          | string | null: false |
 | nickname           | string | null: false |
+| date_of_birth      | integer| null: false |
 
 ### Association
 
@@ -46,8 +49,11 @@ Things you may want to cover:
 | ------------------ | ------ | ----------- |
 | item_name          | string | null: false |
 | category           | text   | null: false |
+| condition          | text   | null: false |
+| from               | text   | null: false |
 | price              | integer| null: false |
-| user_id            | references | null: false, foreign_key:true |
+| shipping date      | integer| null: false |
+| user_id            | references | null: false,foreign_key:true |
 
 ### Association
 
@@ -59,21 +65,20 @@ Things you may want to cover:
 | Column             | Type    | Options                       |
 | ------------------ | ------  | ------------------------------|
 | postal_code        | string  | null: false, foreign_key:true |
-| prefecture         | integer | null: false, foreign_key:true |
+| prefecture         | string  | null: false, foreign_key:true |
 | city               | string  | null: false, foreign_key:true |
-| house_number       | string  | null: false, foreign_key:true |
+| house_number       | integer | null: false, foreign_key:true |
 | building_name      | string  | null: false, foreign_key:true |
 
 ### Association
 has_one :buyer
 
-## buyer テーブル
+## buyers テーブル
 
 | Column             | Type       | Options                       |
 | ------------------ | -----------| ------------------------------|
 | item_id            | references | null: false, foreign_key:true |
 | user_id            | references | null: false, foreign_key:true |
-| addresses _id      | references | null: false, foreign_key:true |
 
 ### Association
 
