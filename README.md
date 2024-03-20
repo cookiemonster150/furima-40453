@@ -41,7 +41,7 @@ Things you may want to cover:
 ### Association
 
 - has_many :items
-- has_many :buyer
+- has_many :buyers
 
 ## items テーブル
 
@@ -49,13 +49,11 @@ Things you may want to cover:
 | ------------------ | ------    | ----------- |
 | item_name          | string    | null: false |
 | description        | text      | null: false |
-| detail             | string    |             |
 | category_id        | integer   | null: false |
 | condition_id       | integer   | null: false |
-| delivery           | string    |             |
 | postage_id         | integer   | null: false |
 | from_id            | integer   | null: false |
-| days_id            | date      | null: false |
+| day_id             | integer   | null: false |
 | price              | integer   | null: false |
 | user               | references| null: false,foreign_key:true |
 
@@ -90,6 +88,6 @@ belongs_to  :buyer
 
 - belongs_to :user
 - belongs_to :item
-- has_one :addresses
+- has_one :address
 
 
