@@ -51,7 +51,7 @@ Things you may want to cover:
 | description        | text      | null: false |
 | category_id        | integer   | null: false |
 | condition          | integer   | null: false |
-| price              | integer   | null: false |
+| postage            | integer   | null: false |
 | from               | integer   | null: false |
 | days               | date      | null: false |
 | price              | integer   | null: false |
