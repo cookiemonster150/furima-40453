@@ -36,7 +36,7 @@ Things you may want to cover:
 | first_name         | string | null: false |
 | last_name          | string | null: false |
 | nickname           | string | null: false |
-| date_of_birth      | integer| null: false |
+| date_of_birth      | date   | null: false |
 
 ### Association
 
@@ -45,45 +45,49 @@ Things you may want to cover:
 
 ## items テーブル
 
-| Column             | Type   | Options     |
-| ------------------ | ------ | ----------- |
-| item_name          | string | null: false |
-| category           | text   | null: false |
-| condition          | text   | null: false |
-| from               | text   | null: false |
-| price              | integer| null: false |
-| shipping date      | integer| null: false |
-| user_id            | references | null: false,foreign_key:true |
+| Column             | Type      | Options     |
+| ------------------ | ------    | ----------- |
+| item_name          | string    | null: false |
+| description        | text      | null: false |
+| category_id        | integer   | null: false |
+| condition          | integer   | null: false |
+| price              | integer   | null: false |
+| from               | integer   | null: false |
+| days               | date      | null: false |
+| price              | integer   | null: false |
+| user               | references| null: false,foreign_key:true |
 
 ### Association
 
 - belongs_to :user
-- has_many :buyer
+- has_one:buyer
 
 ##  addressesテーブル
 
-| Column             | Type    | Options                       |
-| ------------------ | ------  | ------------------------------|
-| postal_code        | string  | null: false, foreign_key:true |
-| prefecture         | string  | null: false, foreign_key:true |
-| city               | string  | null: false, foreign_key:true |
-| house_number       | integer | null: false, foreign_key:true |
-| building_name      | string  | null: false, foreign_key:true |
+| Column             | Type    | Options    |
+| ------------------ | ------  | -----------|
+| postal_code        | string  | null: false|
+| prefecture_id      | integer | null: false|
+| city               | string  | null: false|
+| house_number       | string  | null: false|
+| building_name      | string  |            |
+| phone_number       | string  | null: false|
+| buyer              | references | null: false, foreign_key:true |
 
 ### Association
-has_one :buyer
+belongs_to  :buyer
 
 ## buyers テーブル
 
 | Column             | Type       | Options                       |
 | ------------------ | -----------| ------------------------------|
-| item_id            | references | null: false, foreign_key:true |
-| user_id            | references | null: false, foreign_key:true |
+| item               | references | null: false, foreign_key:true |
+| user               | references | null: false, foreign_key:true |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :item
-- belongs_to :addresses
+- has_one :addresses
 
 
