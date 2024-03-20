@@ -49,8 +49,10 @@ Things you may want to cover:
 | ------------------ | ------    | ----------- |
 | item_name          | string    | null: false |
 | description        | text      | null: false |
+| detail             | string    |             |
 | category_id        | integer   | null: false |
 | condition_id       | integer   | null: false |
+| delivery           | string    |             |
 | postage_id         | integer   | null: false |
 | from_id            | integer   | null: false |
 | days_id            | date      | null: false |
