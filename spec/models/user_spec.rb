@@ -8,15 +8,6 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '新規登録できる場合' do
       it "first_nameとlast_name,first_name_kanaとlast_name_kana,nickname,,email、passwordとpassword_confirmationが存在すれば登録できる" do
-        @user = FactoryBot.build(:user,
-                            first_name: '田中',
-                            last_name: '颯透',
-                            first_name_kana: 'タナカ',
-                            last_name_kana: 'ハヤト',
-                            nickname: 'name',
-                            email: 'sample@sample',
-                            password: '66666a',
-                            password_confirmation: '66666a')
         expect(@user).to be_valid
       end
     end
