@@ -8,6 +8,16 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '新規登録できる場合' do
       it "first_nameとlast_name,first_name_kanaとlast_name_kana,nickname,,email、passwordとpassword_confirmationが存在すれば登録できる" do
+        user = FactoryBot.build(:user,
+                            first_name: '田中',
+                            last_name: '颯透',
+                            first_name_kana: 'タナカ',
+                            last_name_kana: 'ハヤト',
+                            nickname: 'name',
+                            email: 'sample@sample',
+                            password: '66666a',
+                            password_confirmation: '66666a')
+        expect(user).to be_valid
       end
     end
     context '新規登録できない場合' do
@@ -86,6 +96,48 @@ RSpec.describe User, type: :model do
        @user.valid?
        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
       end
+
+      it 'passwordが半角数字のみの場合は登録できない' do
+        @user.password = '123456'
+        @user.password_confirmation = '1234567'
+        @user.valid?
+        expect(@user.errors.full_messages).to include( "Password is invalid")
+       end
+      
+      it 'passwordが半角英字のみの場合は登録できない' do
+        @user = FactoryBot.build(:user, password: 'password', password_confirmation: 'password')
+        @user.valid?
+        expect(@user.errors[:password]).to include("is invalid")
+      end
+      
+      it 'passwordが全角の場合は登録できない' do
+        @user = FactoryBot.build(:user, password: 'パスワード', password_confirmation: 'パスワード')
+        @user.valid?
+        expect(@user.errors[:password]).to include( "is invalid")
+      end
+      it '姓（全角）に半角文字が含まれていると登録できない' do
+        @user = FactoryBot.build(:user, last_name: 'Smith')
+        @user.valid?
+        expect(@user.errors[:last_name]).to include("is invalid")
+      end
+    
+      it '名（全角）に半角文字が含まれていると登録できない' do
+        @user = FactoryBot.build(:user, first_name: 'John')
+        @user.valid?
+        expect(@user.errors[:first_name]).to include("is invalid")
+      end
+    
+      it '姓（カナ）にカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+        @user = FactoryBot.build(:user, last_name_kana: '山田')
+        @user.valid?
+        expect(@user.errors[:last_name_kana]).to include("is invalid")
+      end
+    
+      it '名（カナ）にカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+        @user = FactoryBot.build(:user, first_name_kana: '太郎')
+        @user.valid?
+        expect(@user.errors[:first_name_kana]).to include("is invalid")
+      end
     end
-  end
+ end
 end
