@@ -23,29 +23,44 @@ RSpec.describe Item, type: :model do
       expect(@item.errors[:description]).to include("can't be blank")
     end
     
-    it "category_idが1の場合は無効" do
-      @item.category_id = 1
-      expect(@item).to_not be_valid
-    end
+      it "category_idがid_1の場合は無効" do
+        valid_category_ids = Category.where.not(id: 1).pluck(:id)
+         @item.category_id = valid_category_ids.sample
+          expect(@item).to be_valid
+         @item.category_id = 1
+          expect(@item).not_to be_valid
+      end
     
-    it "condition_idが1の場合は無効" do
-      @item.condition_id = 1
-      expect(@item).to_not be_valid
-    end
+      it "condition_idがid_1の場合は無効" do
+        valid_condition_ids = Condition.where.not(id: 1).pluck(:id)
+         @item.condition_id = valid_condition_ids.sample
+          expect(@item).to be_valid
+         @item.condition_id = 1
+          expect(@item).not_to be_valid
+      end
 
-    it "postage_idが1の場合は無効" do
-      @item.postage_id = 1
-      expect(@item).to_not be_valid
-    end
+      it "postage_idがid_1の場合は無効" do
+        valid_postage_ids = Postage.where.not(id: 1).pluck(:id)
+         @item.postage_id = valid_postage_ids.sample
+          expect(@item).to be_valid
+         @item.postage_id = 1
+          expect(@item).not_to be_valid
+      end
 
-    it "prefecture_idが1の場合は無効" do
-      @item.prefecture_id = 1
-      expect(@item).to_not be_valid
-    end
+      it "prefecture_idがid_1の場合は無効" do
+        valid_prefecture_ids = Prefecture.where.not(id: 1).pluck(:id)
+         @item.prefecture_id = valid_prefecture_ids.sample
+          expect(@item).to be_valid
+         @item.prefecture_id = 1
+          expect(@item).not_to be_valid
+      end
 
-    it "day_idが1の場合は無効" do
-      @item.day_id = 1
-      expect(@item).to_not be_valid
+    it "day_idがid_1の場合は無効" do
+      valid_day_ids = Day.where.not(id: 1).pluck(:id)
+       @item.day_id = valid_day_ids.sample
+        expect(@item).to be_valid
+       @item.day_id = 1
+        expect(@item).not_to be_valid
     end
 
     it "価格が範囲を下回る場合は無効であること" do
@@ -58,6 +73,30 @@ RSpec.describe Item, type: :model do
       @item.price = 10000000
       @item.valid?
       expect(@item.errors[:price]).to include("must be less than or equal to 9999999")
+    end
+
+    it "priceが空では出品できない" do
+      @item.price = ''
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price can't be blank")
+    end
+
+    it "価格が半角数字以外を含む場合は出品できない" do
+      @item.price = "abc123" 
+      @item.valid?
+      expect(@item.errors[:price]).to include("is not a number")
+    end
+
+    it "userが紐付いていなければ出品できない" do
+      @item.user = nil
+      @item.valid?
+      expect(@item.errors[:user]).to include("must exist")
+    end
+
+    it "imageが空では出品できない" do
+      @item.image = nil
+      @item.valid?
+      expect(@item.errors[:image]).to include("can't be blank")
     end
   end
  end
