@@ -124,7 +124,7 @@ RSpec.describe User, type: :model do
         expect(@user.errors[:last_name_kana]).to include("is invalid")
       end
     
-      it '名（カナ）にカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない' do
+      it'名（カナ）にカタカナ以外の文字（平仮名・漢字・英数字・記号）が含まれていると登録できない'  do
         @user = FactoryBot.build(:user, first_name_kana: '太郎')
         @user.valid?
         expect(@user.errors[:first_name_kana]).to include("is invalid")
