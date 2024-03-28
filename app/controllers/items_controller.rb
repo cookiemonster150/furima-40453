@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.includes(:user).order("created_at DESC")
+    @sold_out = @items.any? { |item| item.order.present? }
   end
 
   def new
@@ -21,6 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @sold_out = @item.order.present?
   end
 
   def edit
@@ -50,9 +52,9 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-      if current_user != @item.user
-      redirect_to action: :index
-    end
+      if current_user != @item.user|| @item.order.present?
+       redirect_to action: :index
+      end
   end
   
 end
