@@ -7,3 +7,6 @@ window.addEventListener('turbo:load', () => {
     addPofitDom.innerHTML = Math.floor(priceInput.value - Math.floor(priceInput.value * 0.1)); // 小数点以下を切り捨てて利益を計算
   });
 });
+
+window.addEventListener('turbo:load', item);
+window.addEventListener("turbo:render", item);
